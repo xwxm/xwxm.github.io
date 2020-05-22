@@ -8,11 +8,6 @@
   </url>
   
   <url>
-    <loc>https://xiaoweiwork.github.io/categories/category/</loc>
-    <lastmod>2020-05-20T15:14:03+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://xiaoweiwork.github.io/2020/05/my-first-post/</loc>
     <lastmod>2020-05-20T15:14:03+08:00</lastmod>
   </url>
@@ -28,11 +23,6 @@
   </url>
   
   <url>
-    <loc>https://xiaoweiwork.github.io/categories/subcategory/</loc>
-    <lastmod>2020-05-20T15:14:03+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://xiaoweiwork.github.io/tags/tag1/</loc>
     <lastmod>2020-05-20T15:14:03+08:00</lastmod>
   </url>
@@ -44,6 +34,16 @@
   
   <url>
     <loc>https://xiaoweiwork.github.io/tags/</loc>
+    <lastmod>2020-05-20T15:14:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xiaoweiwork.github.io/categories/%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2020-05-20T15:14:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xiaoweiwork.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2020-05-20T15:14:03+08:00</lastmod>
   </url>
   
