@@ -2,23 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>基本命令 on My New Hugo Site</title>
-    <link>https://xiaoweiwork.github.io/categories/%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</link>
+    <link>https://xwxm.github.io/categories/%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</link>
     <description>Recent content in 基本命令 on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 20 May 2020 15:14:03 +0800</lastBuildDate>
     
-	<atom:link href="https://xiaoweiwork.github.io/categories/%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xwxm.github.io/categories/%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>My First Post</title>
-      <link>https://xiaoweiwork.github.io/2020/05/my-first-post/</link>
+      <link>https://xwxm.github.io/2020/05/my-first-post/</link>
       <pubDate>Wed, 20 May 2020 15:14:03 +0800</pubDate>
       
-      <guid>https://xiaoweiwork.github.io/2020/05/my-first-post/</guid>
+      <guid>https://xwxm.github.io/2020/05/my-first-post/</guid>
       <description>&lt;p&gt;wrnflkw
 rvwv
-wrwr&lt;/p&gt;</description>
+wrwr&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;my-first-post.assets/image-20200522160141030.png&#34; alt=&#34;image-20200522160141030&#34;&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
