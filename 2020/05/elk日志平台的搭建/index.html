@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.70.0 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Xiao Wei">
+<meta name="keywords" content="ELK">
+<meta name="description" content="ELK日志监控系统，是由Elasticsearch、Logstash、Kibana三个开源软件组成。
+
+">
+
+
+<meta property="og:description" content="ELK日志监控系统，是由Elasticsearch、Logstash、Kibana三个开源软件组成。
+
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK日志平台的搭建">
+<meta name="twitter:title" content="ELK日志平台的搭建">
+<meta property="og:url" content="https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+<meta property="twitter:url" content="https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+<meta property="og:site_name" content="My New Hugo Site">
+<meta property="og:description" content="ELK日志监控系统，是由Elasticsearch、Logstash、Kibana三个开源软件组成。
+
+">
+<meta name="twitter:description" content="ELK日志监控系统，是由Elasticsearch、Logstash、Kibana三个开源软件组成。
+
+">
+<meta property="og:locale" content="zh-cn">
+
+  
+    <meta property="article:published_time" content="2020-05-25T00:39:56">
+  
+  
+    <meta property="article:modified_time" content="2020-05-25T00:39:56">
+  
+  
+  
+    
+      <meta property="article:section" content="工具使用">
+    
+      <meta property="article:section" content="ELK日志平台的搭建使用">
+    
+  
+  
+    
+      <meta property="article:tag" content="ELK">
+    
+      <meta property="article:tag" content="Elasticsearch">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/8cb8d2e02baa3a3ee73944c9c9999125?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/8cb8d2e02baa3a3ee73944c9c9999125?s=640">
+
+
+    <title>ELK日志平台的搭建</title>
+
+    <link rel="icon" href="images/aixm.jpeg">
+    
+
+    
+
+    <link rel="canonical" href="https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://xwxm.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://xwxm.github.io/">My New Hugo Site</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://xwxm.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/8cb8d2e02baa3a3ee73944c9c9999125?s=90" alt="作者的图片" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container" style="opacity:0.8;">
+    
+      <div class="sidebar-profile">
+        <a href="https://xwxm.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/8cb8d2e02baa3a3ee73944c9c9999125?s=110" alt="作者的图片" />
+        </a>
+        <h4 class="sidebar-profile-name">Xiao Wei</h4>
+        
+          <h5 class="sidebar-profile-bio">你的名字 ，是我见过最短的情诗。</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://xwxm.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">首页</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://xwxm.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">分类</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://xwxm.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">标签</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://xwxm.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">归档</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://xwxm.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">关于</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kakawait" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/636472/kakawait" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://xwxm.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      ELK日志平台的搭建
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-05-25T00:39:56&#43;08:00">
+        
+  五月 25, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>发布在</span>
+    
+      <a class="category-link" href="https://xwxm.github.io/categories/%e5%b7%a5%e5%85%b7%e4%bd%bf%e7%94%a8">工具使用</a>, 
+    
+      <a class="category-link" href="https://xwxm.github.io/categories/elk%e6%97%a5%e5%bf%97%e5%b9%b3%e5%8f%b0%e7%9a%84%e6%90%ad%e5%bb%ba%e4%bd%bf%e7%94%a8">ELK日志平台的搭建使用</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <pre><code>ELK日志监控系统，是由Elasticsearch、Logstash、Kibana三个开源软件组成。
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/20200525002417.png" alt="image-20200525002301517"></p>
+<p>[TOC]</p>
+<h2 id="elk">ELK</h2>
+<h3 id="基本知识">基本知识</h3>
+<p>​	ELK日志监控系统是由Elasticsearch、Logstash、Kibana三个开源软件组成</p>
+<ul>
+<li>
+<p>Elasticsearch</p>
+<p>开源式分布引擎，主要功能：收集、分析、存储数据,</p>
+<p>其特点有：分布式，零配置，自动发现，索引自动分片，索引副本机制，Rest风格接口，多数据源，自动搜索负载等。</p>
+</li>
+<li>
+<p>Logstash</p>
+<p>主要用来日志的收集、分析、过滤日志的工具，支持大量数据获取格式</p>
+</li>
+<li>
+<p>Kibana</p>
+<p>为Logstash和ElasticSearch提供一个日志的友好分析、展示的web页面，可在web页面进行日志的搜索、分析、汇总日志</p>
+</li>
+<li>
+<p>ELK 在数据传输上可以用redis、kafka做中间件实现解耦</p>
+</li>
+<li>
+<p>数据 =》分词器 =》词典=》B+树</p>
+</li>
+<li>
+<p>正排索引 倒排索引</p>
+</li>
+</ul>
+<h3 id="基本原理">基本原理</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/20190122153634526.jpg" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567002729981.png" alt="1567002729981"></p>
+<h2 id="安装与使用">安装与使用</h2>
+<h3 id="elasticsearch">ElasticSearch</h3>
+<h4 id="安装">安装</h4>
+<h5 id="下载地址httpswwwelasticcocndownloadspast-releaseselasticsearch-6-4-1-"><a href="https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-4-1">下载地址</a></h5>
+<h5 id="解压安装">解压安装</h5>
+<pre><code>tar -zxvf elasticsearch-6.4.1.tar.gz -C /usr/local
+  
+cd /usr/local/ elasticsearch-6.4.1 
+</code></pre><h5 id="配置文件">配置文件</h5>
+<pre><code>vi /config/elasticsearch.yml
+
+# 添加
+network.host: 0.0.0.0             #都可以访问，默认情况只有本机可以访问
+http.port: 9880                   #端口默认9200，端口占用换了个端口
+</code></pre><h5 id="新建elk用户">新建elk用户</h5>
+<p>ElasticSearch不能在root用户下运行，新加elk用户</p>
+<blockquote>
+<p>​	出于系统安全考虑设置的条件。由于ElasticSearch可以接收用户输入的脚本并且执行，为了系统安全考虑，  建议创建一个单独的用户用来运行ElasticSearch .</p>
+</blockquote>
+<pre><code>useradd elk
+passwd elk
+
+# 密码 elk
+</code></pre><h5 id="修改系统参数">修改系统参数</h5>
+<pre><code>$ vim /etc/sysctl.conf
+#末尾添加一行
+vm.max_map_count=65536
+$ sysctl -p
+vm.max_map_count=65536
+
+
+vim /etc/security/limits.conf
+* soft nofile 65536
+* hard nofile 131072
+* soft nproc 2048
+* hard nproc 4096
+
+</code></pre><h5 id="更改文件所有者">更改文件所有者</h5>
+<p><code>chown -R elk elasticsearch-6.4.1 </code></p>
+<h5 id="切换用户并运行">切换用户并运行</h5>
+<pre><code>su elk
+cd /usr/local/ elasticsearch-6.4.1 
+# 后端运行
+nohup ./bin/elasticsearch &amp;
+
+# 日志查看
+vi nohup.out
+tailf nohup.out
+</code></pre><h5 id="启动成功访问">启动成功，访问。</h5>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1566895747503.png" alt="1566895747503"></p>
+<h5 id="怎么重启">怎么重启</h5>
+<blockquote>
+<pre><code>ps -ef | grep elastic
+kill -9 3250
+sh elasticsearch -d
+</code></pre></blockquote>
+<h4 id="使用">使用</h4>
+<h5 id="curl-localhost9880--输出一下表示启动成功"><code>curl localhost:9880</code>  输出一下表示启动成功</h5>
+<pre><code>{
+    &quot;name&quot;: &quot;zNcLbWs&quot;,
+    &quot;cluster_name&quot;: &quot;elasticsearch&quot;,
+    &quot;cluster_uuid&quot;: &quot;Xt4e1SsaRS6XmV1OtGy5TQ&quot;,
+    &quot;version&quot;: {
+        &quot;number&quot;: &quot;6.4.1&quot;,
+        &quot;build_flavor&quot;: &quot;default&quot;,
+        &quot;build_type&quot;: &quot;tar&quot;,
+        &quot;build_hash&quot;: &quot;e36acdb&quot;,
+        &quot;build_date&quot;: &quot;2018-09-13T22:18:07.696808Z&quot;,
+        &quot;build_snapshot&quot;: false,
+        &quot;lucene_version&quot;: &quot;7.4.0&quot;,
+        &quot;minimum_wire_compatibility_version&quot;: &quot;5.6.0&quot;,
+        &quot;minimum_index_compatibility_version&quot;: &quot;5.0.0&quot;
+    },
+    &quot;tagline&quot;: &quot;You Know, for Search&quot;
+}
+</code></pre><h5 id="es-有索引类型文档的概念-类比于数据库的数据库表记录">ES 有索引、类型、文档的概念 类比于数据库的数据库、表、记录</h5>
+<h6 id="创建索引">创建索引</h6>
+<p><code>curl -X PUT 'localhost:9880/web-access'</code></p>
+<blockquote>
+<p><code># -X 表示http方法</code></p>
+<pre><code>{
+  &quot;acknowledged&quot;:true,
+  &quot;shards_acknowledged&quot;:true
+}
+# 返回以上表示创建成功
+</code></pre></blockquote>
+<h6 id="删除索引">删除索引</h6>
+<p><code>$ curl -X DELETE 'localhost:9880/web-access'</code></p>
+<ul>
+<li>
+<p>中文分词设置</p>
+<pre><code>$ ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.4.1/elasticsearch-analysis-ik-6.4.1.zip
+  
+$ curl -X PUT 'localhost:9880/accounts' -d '
+{
+  &quot;mappings&quot;: {
+    &quot;person&quot;: {
+      &quot;properties&quot;: {
+        &quot;user&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+          &quot;search_analyzer&quot;: &quot;ik_max_word&quot;
+        },
+        &quot;title&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+          &quot;search_analyzer&quot;: &quot;ik_max_word&quot;
+        },
+        &quot;desc&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+          &quot;search_analyzer&quot;: &quot;ik_max_word&quot;
+        }
+      }
+    }
+  }
+}'
+首先新建一个名称为accounts的 Index，里面有一个名称为person的 Type。person有三个字段。
+  
+analyzer是字段文本的分词器，search_analyzer是搜索词的分词器。ik_max_word分词器是插件ik提供的，可以对文本进行最大数量的分词。
+</code></pre></li>
+</ul>
+<h6 id="新加文档">新加文档</h6>
+<pre><code>$ curl -X PUT 'localhost:9880/accounts/person/1' -d '
+{
+  &quot;user&quot;: &quot;张三&quot;,
+  &quot;title&quot;: &quot;工程师&quot;,
+  &quot;desc&quot;: &quot;数据库管理&quot;
+}'
+
+#accounts为索引，person为type类型，1文档id  -d后面跟提交的数据，一般为json格式 _id 说一字符串
+# 调用post 请求可以不指定_id，
+
+$ curl -X POST 'localhost:9200/accounts/person' -d '
+{
+  &quot;user&quot;: &quot;李四&quot;,
+  &quot;title&quot;: &quot;工程师&quot;,
+  &quot;desc&quot;: &quot;系统管理&quot;
+}'
+
+
+返回
+
+{
+  &quot;_index&quot;:&quot;accounts&quot;,
+  &quot;_type&quot;:&quot;person&quot;,
+  &quot;_id&quot;:&quot;1&quot;,
+  &quot;_version&quot;:1,
+  &quot;result&quot;:&quot;created&quot;,
+  &quot;_shards&quot;:{&quot;total&quot;:2,&quot;successful&quot;:1,&quot;failed&quot;:0},
+  &quot;created&quot;:true
+}
+</code></pre><h6 id="查看索引">查看索引</h6>
+<p><code>$ curl -X GET 'http://localhost:9880/_cat/indices?v'</code></p>
+<h6 id="查看type">查看Type</h6>
+<p><code>$ curl 'localhost:9880/_mapping?pretty=true'</code></p>
+<blockquote>
+<p>Elastic 6.x 每个index 只有一个Type，7.x 将彻底一出Type</p>
+</blockquote>
+<h6 id="查看记录">查看记录</h6>
+<pre><code>$ curl 'localhost:9880/accounts/person/1?pretty=true'
+
+# found true表示找到 ，_source 表示原始记录数据
+# 找到
+{
+  &quot;_index&quot; : &quot;accounts&quot;,
+  &quot;_type&quot; : &quot;person&quot;,
+  &quot;_id&quot; : &quot;1&quot;,
+  &quot;_version&quot; : 1,
+  &quot;found&quot; : true,
+  &quot;_source&quot; : {
+    &quot;user&quot; : &quot;张三&quot;,
+    &quot;title&quot; : &quot;工程师&quot;,
+    &quot;desc&quot; : &quot;数据库管理&quot;
+  }
+}
+
+# 找不到
+{
+  &quot;_index&quot; : &quot;accounts&quot;,
+  &quot;_type&quot; : &quot;person&quot;,
+  &quot;_id&quot; : &quot;abc&quot;,
+  &quot;found&quot; : false
+}
+</code></pre><h6 id="删除记录">删除记录</h6>
+<p><code>curl -X DELETE 'localhost:9880/accounts/person/1'</code></p>
+<h6 id="更新记录">更新记录</h6>
+<pre><code>curl -X PUT 'localhost:9880/_cluster/settings' -d '
+{
+    &quot;transient&quot; : 
+        {
+      &quot;action.auto_create_index&quot;: &quot;true&quot;
+        }
+}'
+
+
+$ curl -X PUT 'localhost:9880/accounts/person/1' -d '
+{
+    &quot;user&quot; : &quot;张三&quot;,
+    &quot;title&quot; : &quot;工程师&quot;,
+    &quot;desc&quot; : &quot;数据库管理，软件开发&quot;
+}' 
+
+{
+  &quot;_index&quot;:&quot;accounts&quot;,
+  &quot;_type&quot;:&quot;person&quot;,
+  &quot;_id&quot;:&quot;1&quot;,
+  &quot;_version&quot;:2,
+  &quot;result&quot;:&quot;updated&quot;,
+  &quot;_shards&quot;:{&quot;total&quot;:2,&quot;successful&quot;:1,&quot;failed&quot;:0},
+  &quot;created&quot;:false
+}
+
+# 可以看到，记录的 Id 没变，但是版本（version）从1变成2，操作类型（result）从created变成updated，created字段变成false，因为这次不是新建记录。
+
+</code></pre><h6 id="查看所有记录">查看所有记录</h6>
+<pre><code>$ curl 'localhost:9200/accounts/person/_search'
+
+{
+  &quot;took&quot;:2,
+  &quot;timed_out&quot;:false,
+  &quot;_shards&quot;:{&quot;total&quot;:5,&quot;successful&quot;:5,&quot;failed&quot;:0},
+  &quot;hits&quot;:{
+    &quot;total&quot;:2,
+    &quot;max_score&quot;:1.0,
+    &quot;hits&quot;:[
+      {
+        &quot;_index&quot;:&quot;accounts&quot;,
+        &quot;_type&quot;:&quot;person&quot;,
+        &quot;_id&quot;:&quot;AV3qGfrC6jMbsbXb6k1p&quot;,
+        &quot;_score&quot;:1.0,
+        &quot;_source&quot;: {
+          &quot;user&quot;: &quot;李四&quot;,
+          &quot;title&quot;: &quot;工程师&quot;,
+          &quot;desc&quot;: &quot;系统管理&quot;
+        }
+      },
+      {
+        &quot;_index&quot;:&quot;accounts&quot;,
+        &quot;_type&quot;:&quot;person&quot;,
+        &quot;_id&quot;:&quot;1&quot;,
+        &quot;_score&quot;:1.0,
+        &quot;_source&quot;: {
+          &quot;user&quot; : &quot;张三&quot;,
+          &quot;title&quot; : &quot;工程师&quot;,
+          &quot;desc&quot; : &quot;数据库管理，软件开发&quot;
+        }
+      }
+    ]
+  }
+}
+
+
+total：返回记录数，本例是2条。
+max_score：最高的匹配程度，本例是1.0。
+hits：返回的记录组成的数组。
+</code></pre><h6 id="全文搜索">全文搜索</h6>
+<pre><code>$ curl 'localhost:9200/accounts/person/_search'  -d '
+{
+  &quot;query&quot; : { &quot;match&quot; : { &quot;desc&quot; : &quot;软件&quot; }}
+}'
+
+# 默认返回十条数据 size 指定条数
+
+$ curl 'localhost:9200/accounts/person/_search'  -d '
+{
+  &quot;query&quot; : { &quot;match&quot; : { &quot;desc&quot; : &quot;管理&quot; }},
+  &quot;size&quot;: 1
+}'
+
+$ curl 'localhost:9200/accounts/person/_search'  -d '
+{
+  &quot;query&quot; : { &quot;match&quot; : { &quot;desc&quot; : &quot;管理&quot; }},
+  &quot;from&quot;: 1,
+  &quot;size&quot;: 1
+}'
+# 从1 开始返回一条
+</code></pre><h6 id="逻辑运算">逻辑运算</h6>
+<pre><code># 软件or系统
+$ curl 'localhost:9200/accounts/person/_search'  -d '
+{
+  &quot;query&quot; : { &quot;match&quot; : { &quot;desc&quot; : &quot;软件 系统&quot; }}
+}'
+
+
+# and 搜索
+$ curl 'localhost:9200/accounts/person/_search'  -d '
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
+        { &quot;match&quot;: { &quot;desc&quot;: &quot;软件&quot; } },
+        { &quot;match&quot;: { &quot;desc&quot;: &quot;系统&quot; } }
+      ]
+    }
+  }
+}'
+</code></pre><h6 id="健康检查">健康检查</h6>
+<p>1，查看es集群状态</p>
+<p><code>http://192.168.68.143:9880/_cat/health?v</code></p>
+<p>2,集群节点健康查看</p>
+<p><code>http://ip:port/_cat/nodes?v</code></p>
+<blockquote>
+<p><code> -H &quot;Content-Type: application/json&quot; </code></p>
+</blockquote>
+<h5 id="es-一些基本概念">ES 一些基本概念</h5>
+<ul>
+<li>
+<p>es是在lucene基础上封装了一层</p>
+</li>
+<li>
+<p>类似于一个分布式存储检索系统</p>
+</li>
+<li>
+<p>通过分片存储到不同的分片上，每个分片一到多个副本</p>
+</li>
+<li>
+<p>Elastic 会索引所有字段，经过处理后写入一个反向索引（Inverted Index）。查找数据的时候，直接查找该索引。</p>
+<p>所以，Elastic 数据管理的顶层单位就叫做 Index（索引）。它是单个数据库的同义词。每个 Index （即数据库）的名字必须是小写。</p>
+</li>
+</ul>
+<h4 id="集群文件配置">集群文件配置</h4>
+<pre><code>vi elasticsearch.yml
+  
+#集群名称
+cluster.name: application
+node.name: node-1
+
+#主节点（父节点）
+node.master: true
+node.data: false
+
+#路径修改为自己设置的路径
+path.data: /home/elk/ap/ifsp/data
+# Path to log files:
+
+#路径修改为自己设置的路径
+path.logs: /home/elk/ap/ifsp/logs
+
+#设置内存锁定，防止数据swap
+bootstrap.memory_lock: true
+bootstrap.system_call_filter: false
+
+#设置ip
+network.host: 11.18.14.181
+
+#本机端口
+http.port: 9200
+
+#设置集群
+discovery.zen.ping.unicast.hosts: [&quot;192.168.68.143&quot;, &quot;192.168.68.142&quot;,&quot;192.168.68.141&quot;]
+</code></pre><h3 id="kibana">Kibana</h3>
+<h4 id="解压安装-1">解压安装</h4>
+<p>1.下载</p>
+<p><a href="https://www.elastic.co/cn/downloads/past-releases/kibana-6-4-1"> 下载地址 </a></p>
+<ol start="2">
+<li>
+<p>解压</p>
+<pre><code>tar -zxvf kibana-6.4.1-linux-x86_64.tar.gz -C /usr/local/
+</code></pre></li>
+</ol>
+<h4 id="配置文件-1">配置文件</h4>
+<pre><code>cd /usr/local/kibna-6.4.10linux-x86_64
+vi config/kibana.yml
+
+# 添加
+server.host: &quot;0.0.0.0&quot;
+elasticsearch.url: &quot;http://192.168.68.143:9880&quot;
+
+
+1.es 负载均衡 本地客户端节点来负载平衡Kibana请求：
+建协调节点 elasticsearch.yml
+node.master：false
+node.data：false
+node.ingest：false
+elasticsearch.hosts：
+ 
+2 跨多个es node 可用
+elasticsearch.hosts：
+  -  http：// node1：9200
+  -  http：// node2：9200
+
+相关配置包括elasticsearch.sniffInterval，
+elasticsearch.sniffOnStart，
+和elasticsearch.sniffOnConnectionFault。
+这些可用于在调整群集大小时自动更新主机列表。
+</code></pre><h4 id="启动">启动</h4>
+<p><code>nohup ./bin/kibana&amp;</code></p>
+<ol>
+<li><code>netstat -ntulp | grep 5601</code></li>
+</ol>
+<h4 id="查看日志">查看日志</h4>
+<pre><code>vi nohup.out   查看截至到当前日志
+tailf nohup.out    实时查看运行日志
+</code></pre><h4 id="使用-1">使用</h4>
+<h4 id="安装index-pattern">安装index pattern</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567129840460.png" alt="1567129840460"></p>
+<h4 id="nexttimestamp">next，@timestamp</h4>
+<h4 id="discovery">Discovery</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567130121307.png" alt="1567130121307"></p>
+<ol>
+<li>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567138892527.png" alt="1567138892527"></p>
+</li>
+<li>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567143896040.png" alt="1567143896040"></p>
+</li>
+</ol>
+<h3 id="logstash">LogStash</h3>
+<h4 id="解压安装-2">解压安装</h4>
+<ol>
+<li>
+<p>下载</p>
+<p><a href="https://www.elastic.co/cn/downloads/past-releases/logstash-6-4-1">下载地址</a></p>
+</li>
+<li>
+<p>解压</p>
+<pre><code>tar -zxvf logstash-6.4.1.tar.gz -C /usr/local
+   
+cd /usr/local/logstash-6.4.1/
+</code></pre></li>
+</ol>
+<h4 id="创建配置文件">创建配置文件</h4>
+<h5 id="创建微服务直接输出">创建微服务直接输出</h5>
+<h6 id="配置文件-2">配置文件</h6>
+<pre><code>input {
+    tcp {
+        port =&gt; &quot;5044&quot;
+        codec =&gt; &quot;json&quot;
+    }
+}
+
+output {
+    elasticsearch {
+        action =&gt; &quot;index&quot;
+        hosts =&gt; [&quot;192.168.68.143:9880&quot;]
+        index =&gt; &quot;%{[appname]}&quot;
+    }
+}
+
+</code></pre><h6 id="spring-boot-依赖">spring boot 依赖</h6>
+<pre><code>    &lt;!-- https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.logstash.logback&lt;/groupId&gt;
+        &lt;artifactId&gt;logstash-logback-encoder&lt;/artifactId&gt;
+        &lt;version&gt;5.3&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre><h6 id="spring-boot-logbackxml">spring boot logback.xml</h6>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration debug=&quot;false&quot; scan=&quot;true&quot;
+    scanPeriod=&quot;1 seconds&quot;&gt;
+    &lt;include
+        resource=&quot;org/springframework/boot/logging/logback/base.xml&quot; /&gt;
+    &lt;!-- &lt;jmxConfigurator/&gt; --&gt;
+    &lt;contextName&gt;logback&lt;/contextName&gt;
+
+    &lt;property name=&quot;log.path&quot; value=&quot;/home/xxx.log&quot; /&gt; &lt;!--存储日志到服务器路径配置 --&gt;
+
+    &lt;property name=&quot;log.pattern&quot;
+        value=&quot;%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID} --- [%15.15t] %-40.40logger{39} : %m%n&quot; /&gt;
+
+
+    &lt;!--输出到控制台 --&gt;
+    &lt;appender name=&quot;CONSOLE&quot;
+        class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息 --&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;
+            &lt;level&gt;info&lt;/level&gt;
+        &lt;/filter&gt;
+        &lt;encoder&gt;
+            &lt;Pattern&gt;${CONSOLE_LOG_PATTERN}&lt;/Pattern&gt;
+            &lt;!-- 设置字符集 --&gt;
+            &lt;charset&gt;UTF-8&lt;/charset&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;appender name=&quot;file&quot;
+        class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;file&gt;${log.path}&lt;/file&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;info&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+
+        &lt;encoder&gt;
+            &lt;pattern&gt;${log.pattern}&lt;/pattern&gt;
+        &lt;/encoder&gt;
+
+        &lt;rollingPolicy
+            class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+
+            &lt;fileNamePattern&gt;info-%d{yyyy-MM-dd}-%i.log
+            &lt;/fileNamePattern&gt;
+
+            &lt;timeBasedFileNamingAndTriggeringPolicy
+                class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;&gt;
+
+                &lt;maxFileSize&gt;10MB&lt;/maxFileSize&gt;
+            &lt;/timeBasedFileNamingAndTriggeringPolicy&gt;
+            &lt;maxHistory&gt;10&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+
+    &lt;/appender&gt;
+
+ &lt;!--下边socket关联logstash --&gt;  
+
+ &lt;appender name=&quot;socket&quot;
+        class=&quot;net.logstash.logback.appender.LogstashSocketAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;
+            &lt;level&gt;INFO&lt;/level&gt;
+        &lt;/filter&gt;
+        &lt;host&gt;192.168.68.143&lt;/host&gt;
+        &lt;port&gt;5044&lt;/port&gt;
+        &lt;customFields&gt;{&quot;appname&quot;:&quot;appname&quot;}&lt;/customFields&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;LOGSTASH&quot;
+        class=&quot;net.logstash.logback.appender.LogstashTcpSocketAppender&quot;&gt;
+        &lt;destination&gt;192.168.0.85:5044&lt;/destination&gt;
+        &lt;!-- encoder必须配置,有多种可选 --&gt;
+        &lt;encoder charset=&quot;UTF-8&quot;
+            class=&quot;net.logstash.logback.encoder.LogstashEncoder&quot;&gt;
+            &lt;customFields&gt;{&quot;appname&quot;:&quot;appname&quot;}&lt;/customFields&gt;
+        &lt;/encoder&gt;
+        &lt;connectionStrategy&gt;
+            &lt;roundRobin&gt;
+                &lt;connectionTTL&gt;5 minutes&lt;/connectionTTL&gt;
+            &lt;/roundRobin&gt;
+        &lt;/connectionStrategy&gt;
+    &lt;/appender&gt;
+
+
+    &lt;root level=&quot;info&quot;&gt;
+        &lt;!-- &lt;appender-ref ref=&quot;file&quot; /&gt; --&gt;
+        &lt;appender-ref ref=&quot;socket&quot; /&gt;
+         &lt;appender-ref ref=&quot;LOGSTASH&quot; /&gt;
+    &lt;/root&gt;
+
+&lt;/configuration&gt;
+ 
+</code></pre><ul>
+<li>
+<p>log文件配置：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567002369142.png" alt="1567002369142"></p>
+</li>
+</ul>
+<h4 id="配置文件写法">配置文件写法</h4>
+<p>​	input、filter、output</p>
+<h5 id="input-配置">input 配置</h5>
+<pre><code>stdin { } # 从控制台中输入来源
+
+
+file { # 从文件中来,绝对路径
+        path =&gt; &quot;E:/software/logstash-1.5.4/logstash-1.5.4/data/*&quot; #单一文件
+         #监听文件的多个路径
+        path =&gt; [&quot;E:/software/logstash-1.5.4/logstash-1.5.4/data/*.log&quot;,&quot;F:/*.log&quot;]
+        #排除不想监听的文件
+        exclude =&gt; &quot;1.log&quot;
+        
+        #添加自定义的字段
+        add_field =&gt; {&quot;test&quot;=&gt;&quot;test&quot;}
+        #增加标签
+        tags =&gt; &quot;tag1&quot;
+
+        #设置新事件的标志
+        delimiter =&gt; &quot;\n&quot;
+
+        #设置多长时间扫描目录，发现新文件
+        discover_interval =&gt; 15
+        #设置多长时间检测文件是否修改
+        stat_interval =&gt; 1
+
+         #监听文件的起始位置，默认是end
+        start_position =&gt; beginning
+
+        #监听文件读取信息记录的位置
+        sincedb_path =&gt; &quot;E:/software/logstash-1.5.4/logstash-1.5.4/test.txt&quot;
+        #设置多长时间会写入读取的位置信息
+        sincedb_write_interval =&gt; 15
+    }
+
+
+ syslog { # 系统日志方式
+  type =&gt; &quot;system-syslog&quot;  # 定义类型
+   port =&gt; 10514    # 定义监听端口
+ }
+
+
+ beats { # filebeats方式
+  port =&gt; 5044
+ }
+</code></pre><h5 id="filter">filter：</h5>
+<ul>
+<li>grok：解析无规则的文字并转化为有结构的格式。Grok 是目前最好的方式来将无结构的数据转换为有结构可查询的数据。有120多种匹配规则，会有一种满足你的需要。</li>
+<li>mutate：mutate filter 允许改变输入的文档，你可以从命名，删除，移动或者修改字段在处理事件的过程中。</li>
+<li>drop：丢弃一部分events不进行处理，例如：debug events。</li>
+<li>clone：拷贝 event，这个过程中也可以添加或移除字段。</li>
+<li>geoip：添加地理信息(为前台kibana图形化展示使用)</li>
+<li>logstash自带的文件正则支持grok,date,geoip</li>
+</ul>
+<pre><code>filter {
+
+  #定义数据的格式
+  grok {
+    match =&gt; { &quot;message&quot; =&gt; &quot;%{DATA:timestamp}\|%{IP:serverIp}\|%{IP:clientIp}\|%{DATA:logSource}\|%{DATA:userId}\|%{DATA:reqUrl}\|%{DATA:reqUri}\|%{DATA:refer}\|%{DATA:device}\|%{DATA:textDuring}\|%{DATA:duringTime:int}\|\|&quot;}
+  }
+
+ #定义时间戳的格式
+  date {
+    match =&gt; [ &quot;timestamp&quot;, &quot;yyyy-MM-dd-HH:mm:ss&quot; ]
+    locale =&gt; &quot;cn&quot;
+  }
+
+  #定义客户端的IP是哪个字段（上面定义的数据格式）
+  geoip {
+    source =&gt; &quot;clientIp&quot;
+  }
+   #需要进行转换的字段，这里是将访问的时间转成int，再传给Elasticsearch
+  mutate {
+    convert =&gt; [&quot;duringTime&quot;, &quot;integer&quot;]
+  }
+}
+
+</code></pre><h5 id="output">output</h5>
+<ul>
+<li>elasticsearch：如果你计划将高效的保存数据，并且能够方便和简单的进行查询.</li>
+<li>file：将event数据保存到文件中。</li>
+<li>graphite：将event数据发送到图形化组件中，一个很流行的开源存储图形化展示的组件。http://graphite.wikidot.com/。</li>
+<li>statsd：statsd是一个统计服务，比如技术和时间统计，通过udp通讯，聚合一个或者多个后台服务，如果你已经开始使用statsd，该选项对你应该很有用。</li>
+<li>默认情况下将过滤扣的数据输出到elasticsearch，当我们不需要输出到ES时需要特别声明输出的方式是哪一种，同时支持配置多个输出源</li>
+</ul>
+<pre><code>output {
+  #将输出保存到elasticsearch，如果没有匹配到时间就不保存，因为日志里的网址参数有些带有换行
+  if [timestamp] =~ /^\d{4}-\d{2}-\d{2}/ {
+        elasticsearch { host =&gt; localhost }
+  }
+
+   #输出到stdout
+#  stdout { codec =&gt; rubydebug }
+
+#定义访问数据的用户名和密码
+#  user =&gt; webService
+#  password =&gt; 1q2w3e4r
+}
+
+</code></pre><ul>
+<li>
+<p>Codecs
+codecs 是基于数据流的过滤器，它可以作为input，output的一部分配置。Codecs可以帮助你轻松的分割发送过来已经被序列化的数据。流行的codecs包括 json,msgpack,plain(text)。</p>
+<p>json：使用json格式对数据进行编码/解码
+multiline：将汇多个事件中数据汇总为一个单一的行。比如：java异常信息和堆栈信息
+获取完整的配置信息，请参考 Logstash文档中 &ldquo;plugin configuration&quot;部分。</p>
+</li>
+<li>
+<p>调试模式</p>
+<pre><code>input {
+stdin { }
+# file { #文件配置方式
+#         path =&gt; &quot;/opt/logstash/1.log&quot;
+#         start_position =&gt; &quot;beginning&quot;
+#     }
+}
+  
+filter {  # 配置过滤器
+    grok {
+    patterns_dir =&gt; &quot;D:\mnt\work_space\ELK\logstash-7.3.0\config\patterns&quot;
+        match =&gt; { 
+         &quot;message&quot; =&gt;&quot;%{IPORHOST:remote_addr} - - \[%{HTTPDATE:log_timestamp}\] %{HOSTNAME:http_host} %{WORD:request_method} \&quot;%{URIPATH1:uri}\&quot; \&quot;%{URIPARM1:param}\&quot; %{BASE10NUM:http_status} %{BASE10NUM:body_bytes_sent} \&quot;(?:%{URI1:http_referrer}|-)\&quot; (%{BASE10NUM:upstream_status}|-) (?:%{HOSTPORT:upstream_addr}|-) (%{BASE16FLOAT:upstream_response_time}|-) (%{BASE16FLOAT:request_time}|-) (?:%{QUOTEDSTRING:user_agent}|-) \&quot;(%{WORD:x_forword_for}|-)\&quot;&quot;
+        }
+  
+    }
+  
+    date {  
+      match =&gt; [ &quot;log_timestamp&quot;, &quot;yyyy-MM-dd-HH:mm:ss&quot; ]
+      locale =&gt; &quot;cn&quot;
+      } 
+}
+  
+output {
+ stdout {
+    codec =&gt; rubydebug  # 将日志输出到当前的终端上显示
+  }
+}
+  
+#message是根据下面的日志数据格式进行的解析，它会自动解析成k-v键值对形式在控制台打印出来，这#也是后面数据导入到es或者其他持久化文件中的格式，便于其他地方直接使用。
+</code></pre></li>
+</ul>
+<h4 id="更新配置文件">更新配置文件</h4>
+<pre><code>./logstash -f ../config/logstash_1.conf --config.reload.automatic
+</code></pre><h4 id="插件安装">插件安装</h4>
+<blockquote>
+<p>日志输出往往是多行，multiline插件</p>
+</blockquote>
+<pre><code>cd logstash-6.4.1/
+yum -y install zip
+zip logstash-filter-multiline-3.0.4.zip logstash-filter-multiline-3.0.4.gem 
+./logstash-plugin install file:///usr/local/logstash-6.4.1/logstash-filter-multiline-3.0.4.zip 
+
+</code></pre><blockquote>
+<p>json_lines 等插件</p>
+</blockquote>
+<h2 id="遇到的问题">遇到的问题</h2>
+<h4 id="elasticsearch-不能在root-用户下启动">ElasticSearch 不能在root 用户下启动</h4>
+<h4 id="查询关闭进程">查询关闭进程</h4>
+<pre><code>yum -y install lsof
+lsof -i:端口号
+kill -9 pid
+
+ps -ef | grep redis
+kill -9 pid
+
+netstat -apn|grep 5601
+kill -9 ...
+
+ps -aux | grep tomcat
+netstat -anp|grep 8080
+</code></pre><p>1。  search_phase_execution_exception] all shards failed</p>
+<h4 id="索引删除含有特殊字符无法删除">索引删除含有特殊字符无法删除</h4>
+<pre><code>curl   -X   DELETE 'localhost:9880/%{[appname]}'
+
+1.curl: (3) [globbing] nested braces not supported at pos 20
+	-g/--globoff	
+ 	这个选项关闭 &quot;URL globbing parser&quot;。当你设置这个选项是，你可以指定包含 {}[]符号的URLS，而不需要被curl自己解析。注意这个符号正常合法的url内容，但是依照URI标准他们确实可以被编码。
+ 	curl   -X   DELETE 'localhost:9880/%{[appname]}'
+---------------------------------------------------------------------
+2.{&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;invalid escape sequence `%{[' at index 0 of: %{[appname]}&quot;}]
+url  转义
+curl -g -X   DELETE 'localhost:9880/%25{[appname]}'
+</code></pre><h4 id="系统配置文件导致的问题">系统配置文件导致的问题</h4>
+<ol>
+<li>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567151439425.png" alt="1567151439425"></p>
+<pre><code>vi /etc/sysctl.conf
+# 添加
+vm.max_map_count=655360
+</code></pre></li>
+<li>
+<p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567151550088.png" alt="1567151550088"></p>
+<pre><code>vi /etc/sercurity/limits.conf
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/1567151624464.png" alt="1567151624464"></p>
+<h4 id="es_auto_create_index_error">ES_AUTO_CREATE_INDEX_ERROR</h4>
+</li>
+</ol>
+<pre><code>  
+ {statusCode: 503, error: &quot;Service Unavailable&quot;,
+ 
+  message: &quot;Automatic index creation failed&quot;,…} 《== 核心报错内容
+ 
+ code: &quot;ES_AUTO_CREATE_INDEX_ERROR&quot;
+ error: &quot;Service Unavailable&quot;
+ message: &quot;Automatic index creation failed&quot;
+ statusCode: 503
+  
+ 以上报错信息基本可以确定是集群不能自动创建索引导致的，先临时打开试一下。
+  
+ 
+ ### 临时开启允许es集群允许创建索引
+  
+ PUT _cluster/settings
+ {
+     &quot;transient&quot; : 
+         {
+       &quot;action.auto_create_index&quot;: &quot;true&quot;
+         }
+ }
+ 然后点击 yes or no都将不会再报错 ! 问题解决。
+  
+</code></pre>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">标签</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://xwxm.github.io/tags/elk/">ELK</a>
+
+  <a class="tag tag--primary tag--small" href="https://xwxm.github.io/tags/elasticsearch/">Elasticsearch</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Xiao Wei. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fxwxm.github.io%2F2020%2F05%2Felk%25E6%2597%25A5%25E5%25BF%2597%25E5%25B9%25B3%25E5%258F%25B0%25E7%259A%2584%25E6%2590%25AD%25E5%25BB%25BA%2F">
+          <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fxwxm.github.io%2F2020%2F05%2Felk%25E6%2597%25A5%25E5%25BF%2597%25E5%25B9%25B3%25E5%258F%25B0%25E7%259A%2584%25E6%2590%25AD%25E5%25BB%25BA%2F">
+          <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fxwxm.github.io%2F2020%2F05%2Felk%25E6%2597%25A5%25E5%25BF%2597%25E5%25B9%25B3%25E5%258F%25B0%25E7%259A%2584%25E6%2590%25AD%25E5%25BB%25BA%2F">
+          <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/8cb8d2e02baa3a3ee73944c9c9999125?s=110" alt="作者的图片" />
+    
+    <h4 id="about-card-name">Xiao Wei</h4>
+    
+      <div id="about-card-bio">你的名字 ，是我见过最短的情诗。</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Your job title
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        China
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://xwxm.github.io/images/f8caabf366bdfa93dee7ac0f5461c80d.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://xwxm.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/xwxm.github.io\/2020\/05\/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA\/';
+          
+            this.page.identifier = '\/2020\/05\/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'tranquilpeak';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
