@@ -68,7 +68,7 @@
 
   <body>
     <div id="blog">
-      <header id="header" data-behavior="2">
+      <header id="header" data-behavior="1">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
     <a class="header-title-link" href="https://xwxm.github.io/">我的博客</a>
@@ -88,7 +88,7 @@
   
 </header>
 
-      <nav id="sidebar" data-behavior="2">
+      <nav id="sidebar" data-behavior="1">
   <div class="sidebar-container" style="opacity:0.8;">
     
       <div class="sidebar-profile">
@@ -140,6 +140,16 @@
       <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
       
       <span class="sidebar-button-desc">归档</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://xwxm.github.io/#search">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">搜索</span>
     </a>
   </li>
 
@@ -198,7 +208,7 @@
 
       
 
-      <div id="main" data-behavior="2"
+      <div id="main" data-behavior="1"
         class="
                hasCoverMetaIn
                ">
@@ -214,6 +224,10 @@
 
             <section>
               
+                <a class="tag tag--primary tag--small" href="#git-list" data-tag="git">
+                  git
+                </a>
+              
                 <a class="tag tag--primary tag--small" href="#elasticsearch-list" data-tag="elasticsearch">
                   elasticsearch
                 </a>
@@ -222,16 +236,41 @@
                   elk
                 </a>
               
-                <a class="tag tag--primary tag--small" href="#git-list" data-tag="git">
-                  git
-                </a>
-              
                 <a class="tag tag--primary tag--small" href="#picgo%25E5%259B%25BE%25E5%25BA%258A-list" data-tag="picgo图床">
                   picgo图床
                 </a>
               
             </section>
             <section class="boxes">
+              
+                <div id="git-list" class="archive box" data-tag="git">
+                  <h4 class="archive-title">
+                    <a class="link-unstyled" href="git">
+                      git (2)
+                    </a>
+                  </h4>
+                  <ul class="archive-posts">
+                    
+                      <li class="archive-post">
+                        <a class="archive-post-title" href="https://xwxm.github.io/2020/05/git%E5%AD%A6%E4%B9%A0/">
+                          Git学习
+                        </a>
+                        <span class="archive-post-date"> - 
+  五月 25, 2020
+</span>
+                      </li>
+                    
+                      <li class="archive-post">
+                        <a class="archive-post-title" href="https://xwxm.github.io/2020/05/git%E4%BA%8C/">
+                          Git（二）
+                        </a>
+                        <span class="archive-post-date"> - 
+  五月 25, 2020
+</span>
+                      </li>
+                    
+                  </ul>
+                </div>
               
                 <div id="elasticsearch-list" class="archive box" data-tag="elasticsearch">
                   <h4 class="archive-title">
@@ -264,26 +303,6 @@
                       <li class="archive-post">
                         <a class="archive-post-title" href="https://xwxm.github.io/2020/05/elk%E6%97%A5%E5%BF%97%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%90%AD%E5%BB%BA/">
                           ELK日志平台的搭建
-                        </a>
-                        <span class="archive-post-date"> - 
-  五月 25, 2020
-</span>
-                      </li>
-                    
-                  </ul>
-                </div>
-              
-                <div id="git-list" class="archive box" data-tag="git">
-                  <h4 class="archive-title">
-                    <a class="link-unstyled" href="git">
-                      git (1)
-                    </a>
-                  </h4>
-                  <ul class="archive-posts">
-                    
-                      <li class="archive-post">
-                        <a class="archive-post-title" href="https://xwxm.github.io/2020/05/git%E5%AD%A6%E4%B9%A0/">
-                          Git学习
                         </a>
                         <span class="archive-post-date"> - 
   五月 25, 2020

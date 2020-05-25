@@ -96,7 +96,7 @@
 
   <body>
     <div id="blog">
-      <header id="header" data-behavior="5">
+      <header id="header" data-behavior="1">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
     <a class="header-title-link" href="https://xwxm.github.io/">我的博客</a>
@@ -116,7 +116,7 @@
   
 </header>
 
-      <nav id="sidebar" data-behavior="5">
+      <nav id="sidebar" data-behavior="1">
   <div class="sidebar-container" style="opacity:0.8;">
     
       <div class="sidebar-profile">
@@ -168,6 +168,16 @@
       <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
       
       <span class="sidebar-button-desc">归档</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://xwxm.github.io/#search">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">搜索</span>
     </a>
   </li>
 
@@ -226,7 +236,7 @@
 
       
 
-      <div id="main" data-behavior="5"
+      <div id="main" data-behavior="1"
         class="
                hasCoverMetaIn
                ">
@@ -268,6 +278,7 @@
               <pre><code>ELK日志监控系统，是由Elasticsearch、Logstash、Kibana三个开源软件组成。
 </code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/xwxm/pictures/img/20200525002417.png" alt="image-20200525002301517"></p>
+<!-- raw HTML omitted -->
 <p>[TOC]</p>
 <h2 id="elk">ELK</h2>
 <h3 id="基本知识">基本知识</h3>
@@ -1094,17 +1105,17 @@ vm.max_map_count=655360
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://xwxm.github.io/2020/05/picgo-github-%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/" data-tooltip="Picgo Github 图床搭建">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
-                  <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
                 </a>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://xwxm.github.io/2020/05/picgo-github-%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/" data-tooltip="Picgo Github 图床搭建">
               
-                  <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                   <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -1172,7 +1183,7 @@ vm.max_map_count=655360
 </footer>
 
       </div>
-      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
         <div class="post-actions-wrap">
   
       <nav >
@@ -1180,17 +1191,17 @@ vm.max_map_count=655360
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://xwxm.github.io/2020/05/picgo-github-%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/" data-tooltip="Picgo Github 图床搭建">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
-                  <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
                 </a>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://xwxm.github.io/2020/05/picgo-github-%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/" data-tooltip="Picgo Github 图床搭建">
               
-                  <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                   <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -1243,7 +1254,7 @@ vm.max_map_count=655360
 </div>
 
       </div>
-      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+      <div id="share-options-bar" class="share-options-bar" data-behavior="1">
   <i id="btn-close-shareoptions" class="fa fa-close"></i>
   <ul class="share-options">
     
@@ -1364,7 +1375,7 @@ $(document).ready(function() {
             return;
           }
           var d = document, s = d.createElement('script');
-          var disqus_shortname = 'tranquilpeak';
+          var disqus_shortname = 'valine';
           s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
 
           s.setAttribute('data-timestamp', +new Date());
