@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on My New Hugo Site</title>
+    <title>Categories on 我的博客</title>
     <link>https://xwxm.github.io/categories/</link>
-    <description>Recent content in Categories on My New Hugo Site</description>
+    <description>Recent content in Categories on 我的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 25 May 2020 09:37:58 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2020 10:05:42 +0800</lastBuildDate>
     
 	<atom:link href="https://xwxm.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git使用</title>
+      <link>https://xwxm.github.io/categories/git%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 May 2020 10:05:42 +0800</pubDate>
+      
+      <guid>https://xwxm.github.io/categories/git%E4%BD%BF%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>工具使用</title>
+      <link>https://xwxm.github.io/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 May 2020 10:05:42 +0800</pubDate>
+      
+      <guid>https://xwxm.github.io/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>图床配置</title>
@@ -16,15 +34,6 @@
       <pubDate>Mon, 25 May 2020 09:37:58 +0800</pubDate>
       
       <guid>https://xwxm.github.io/categories/%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>工具使用</title>
-      <link>https://xwxm.github.io/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</link>
-      <pubDate>Mon, 25 May 2020 09:37:58 +0800</pubDate>
-      
-      <guid>https://xwxm.github.io/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</guid>
       <description></description>
     </item>
     
