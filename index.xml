@@ -5,10 +5,19 @@
     <link>https://xwxm.github.io/</link>
     <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 25 May 2020 00:39:56 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2020 09:37:58 +0800</lastBuildDate>
     
 	<atom:link href="https://xwxm.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Picgo Github 图床搭建</title>
+      <link>https://xwxm.github.io/2020/05/picgo-github-%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Mon, 25 May 2020 09:37:58 +0800</pubDate>
+      
+      <guid>https://xwxm.github.io/2020/05/picgo-github-%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ELK日志平台的搭建</title>
