@@ -5,10 +5,28 @@
     <link>https://xwxm.github.io/tags/</link>
     <description>Recent content in Tags on 我的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 25 May 2020 10:17:17 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2020 16:22:34 +0800</lastBuildDate>
     
 	<atom:link href="https://xwxm.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Socket</title>
+      <link>https://xwxm.github.io/tags/socket/</link>
+      <pubDate>Wed, 29 Jul 2020 16:22:34 +0800</pubDate>
+      
+      <guid>https://xwxm.github.io/tags/socket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>网络</title>
+      <link>https://xwxm.github.io/tags/%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Wed, 29 Jul 2020 16:22:34 +0800</pubDate>
+      
+      <guid>https://xwxm.github.io/tags/%E7%BD%91%E7%BB%9C/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Git</title>
